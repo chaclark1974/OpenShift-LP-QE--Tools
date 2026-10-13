@@ -47,7 +47,7 @@ All model-driven behavior lives in the ship-help persona, not here.
 
 | API | Direction | Auth | Operations used | Notes |
 |---|---|---|---|---|
-| **ship-help MCP** (`PROW_AN__SHIP__HELP_MCP_URL`) | Outbound | `Authorization: Bearer <PROW_AN__SHIP__HELP_MCP_TOKEN>` + `Mcp-Session-Id` | `initialize` (protocol `2024-11-05`), `tools/call` → `ask_persona` | JSON-RPC 2.0; response is an SSE stream. Auto-recovers a stale session and retries once. 1,200s (20-min) default client timeout, overridable via the bot's `--mcp-timeout` / `PROW_AN__MCP__TIMEOUT_SECONDS` or the CLI's unprefixed `MCP_TIMEOUT_SECONDS`. (CLI reads the unprefixed `SHIP_HELP_MCP_URL`/`SHIP_HELP_MCP_TOKEN`.) |
+| **ship-help MCP** (`PROW_AN__MCP__URL__SHIP_HELP`) | Outbound | `Authorization: Bearer <PROW_AN__MCP__TOKEN__SHIP_HELP>` + `Mcp-Session-Id` | `initialize` (protocol `2024-11-05`), `tools/call` → `ask_persona` | JSON-RPC 2.0; response is an SSE stream. Auto-recovers a stale session and retries once. 1,200s (20-min) default client timeout, overridable via the bot's `--mcp-timeout` / `PROW_AN__MCP__TIMEOUT_SECONDS` or the CLI's unprefixed `MCP_TIMEOUT_SECONDS`. (CLI reads the unprefixed `SHIP_HELP_MCP_URL`/`SHIP_HELP_MCP_TOKEN`.) |
 | **Slack Web API** | Outbound | `PROW_AN__SLACK__BOT_TOKEN` (`xoxb-…`) | `chat.postMessage` (via `chat:write`) | Posts analysis, error, and "queue full" replies in-thread. |
 | **Slack Socket Mode** | Outbound WebSocket (WSS) | `PROW_AN__SLACK__APP_TOKEN` (`xapp-…`) | Receives Events API callbacks; `Ack()` | No public ingress; outbound-only. |
 
@@ -105,7 +105,7 @@ The exported functions/constants that define the agent's behavior:
 |---|---|---|
 | Slack channel messages | `channels:history` | Only public channels the bot has been **invited to**. Reads message text to detect Prow URLs. |
 | Prow job URL | From message text / CLI arg | The URL string is passed to ship-help. |
-| Runtime configuration | Env vars / CLI flags | Bot (`PROW_AN__`-prefixed): `PROW_AN__SHIP__HELP_MCP_URL`, `PROW_AN__SHIP__HELP_MCP_TOKEN`, `PROW_AN__SLACK__BOT_TOKEN`, `PROW_AN__SLACK__APP_TOKEN`, `PROW_AN__MONITORED__CHANNELS`, `PROW_AN__PROMPT__TEMPLATE`. CLI: `SHIP_HELP_MCP_URL`, `SHIP_HELP_MCP_TOKEN` (or `-mcp-url`/`-token`), `-prompt`. Both (unprefixed): `TLS_INSECURE_SKIP_VERIFY`. |
+| Runtime configuration | Env vars / CLI flags | Bot (`PROW_AN__`-prefixed): `PROW_AN__MCP__URL__SHIP_HELP`, `PROW_AN__MCP__TOKEN__SHIP_HELP`, `PROW_AN__SLACK__BOT_TOKEN`, `PROW_AN__SLACK__APP_TOKEN`, `PROW_AN__MONITORED_CHANNELS`, `PROW_AN__PROMPT__TEMPLATE`. CLI: `SHIP_HELP_MCP_URL`, `SHIP_HELP_MCP_TOKEN` (or `-mcp-url`/`-token`), `-prompt`. Both (unprefixed): `TLS_INSECURE_SKIP_VERIFY`. |
 
 ### Indirect (viewed by ship-help on the agent's behalf)
 

@@ -34,6 +34,7 @@ test: test--unit test--integration
 # shared script, which also guards that the unit build tag selects tests).
 test--unit:
 	$(SCRIPTS)/test-coverage.sh
+	$(GO) test -v -tags unit ./cmd/prow-analyzer--bot
 
 # Integration tests: real HTTP servers and the async Handle() path, under -race.
 test--integration:
