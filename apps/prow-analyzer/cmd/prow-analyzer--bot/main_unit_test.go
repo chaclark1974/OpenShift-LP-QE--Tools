@@ -27,7 +27,7 @@ func TestBotEnvironmentFlagDefaults(t *testing.T) {
 
 	for _, key := range []string{
 		"PROW_AN__MCP__URL__SHIP_HELP", "PROW_AN__MCP__TOKEN__SHIP_HELP", "PROW_AN__MCP__SHIP_HELP__DEBUG",
-		"PROW_AN__MONITORED_CHANNELS", "PROW_AN__ALLOWED_BOT_IDS", "PROW_AN__MCP__TIMEOUT_SECONDS",
+		"PROW_AN__MONITORED_CHANNELS", "PROW_AN__ALLOWED_BOT_IDS", "PROW_AN__MCP__TIMEOUT_SEC",
 		"SHIP_HELP_MCP_URL", "SHIP_HELP_MCP_TOKEN", "MCP_DEBUG", "MCP_TIMEOUT_SECONDS",
 	} {
 		t.Setenv(key, "")
@@ -52,7 +52,7 @@ func TestBotEnvironmentFlagDefaults(t *testing.T) {
 				"PROW_AN__MCP__SHIP_HELP__DEBUG": "true",
 				"PROW_AN__MONITORED_CHANNELS":    "C123,C456",
 				"PROW_AN__ALLOWED_BOT_IDS":       "B123,B456",
-				"PROW_AN__MCP__TIMEOUT_SECONDS":  "1800",
+				"PROW_AN__MCP__TIMEOUT_SEC":      "1800",
 			},
 			args: "-h",
 			want: "mcp-url=https://example.com/mcp\nmcp-token=test-token\nmcp-debug=true\nchannels=C123,C456\nallowed-bots=B123,B456\nmcp-timeout=1800\n",
@@ -65,7 +65,7 @@ func TestBotEnvironmentFlagDefaults(t *testing.T) {
 				"PROW_AN__MCP__SHIP_HELP__DEBUG": "true",
 				"PROW_AN__MONITORED_CHANNELS":    "C123,C456",
 				"PROW_AN__ALLOWED_BOT_IDS":       "B123,B456",
-				"PROW_AN__MCP__TIMEOUT_SECONDS":  "1800",
+				"PROW_AN__MCP__TIMEOUT_SEC":      "1800",
 			},
 			args: "-mcp-url https://override.example.com/mcp -mcp-token override-token -mcp-debug=false -channels C789 -allowed-bots B789 -mcp-timeout 2400 -h",
 			want: "mcp-url=https://override.example.com/mcp\nmcp-token=override-token\nmcp-debug=false\nchannels=C789\nallowed-bots=B789\nmcp-timeout=2400\n",
@@ -82,7 +82,7 @@ func TestBotEnvironmentFlagDefaults(t *testing.T) {
 		{
 			name: "invalid boolean and timeout retain defaults",
 			env: map[string]string{
-				"PROW_AN__MCP__SHIP_HELP__DEBUG": "invalid", "PROW_AN__MCP__TIMEOUT_SECONDS": "invalid",
+				"PROW_AN__MCP__SHIP_HELP__DEBUG": "invalid", "PROW_AN__MCP__TIMEOUT_SEC": "invalid",
 			},
 			args: "-h",
 			want: "mcp-url=\nmcp-token=\nmcp-debug=false\nchannels=\nallowed-bots=\nmcp-timeout=1200\n",

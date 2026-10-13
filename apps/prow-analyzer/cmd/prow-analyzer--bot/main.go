@@ -66,7 +66,7 @@ func main() {
 		monitorAll  = flag.Bool("monitor-all", envBool("PROW_AN__MONITOR__ALL", false), "Monitor every channel the bot is a member of instead of only --channels. Fail-closed: without this and with no --channels, no channel is monitored (defaults to env. var. PROW_AN__MONITOR__ALL; set it to \"true\" to enable).")
 		slackDebug  = flag.Bool("slack-debug", envBool("PROW_AN__SLACK__DEBUG", false), "Enable verbose Slack SDK and Socket Mode debug logging (defaults to env. var. PROW_AN__SLACK__DEBUG; set it to \"true\" to enable).")
 		mcpDebug    = flag.Bool("mcp-debug", envBool("PROW_AN__MCP__SHIP_HELP__DEBUG", false), "Enable verbose MCP SSE logging that includes response payload previews; off by default for data minimization (defaults to env. var. PROW_AN__MCP__SHIP_HELP__DEBUG; set it to \"true\" to enable).")
-		mcpTimeout  = flag.Int("mcp-timeout", envInt("PROW_AN__MCP__TIMEOUT_SECONDS", int(analyzer.DefaultMCPTimeout/time.Second)), "MCP/Prow HTTP request timeout in seconds; must exceed the longest analysis (defaults to env. var. PROW_AN__MCP__TIMEOUT_SECONDS, if set).")
+		mcpTimeout  = flag.Int("mcp-timeout", envInt("PROW_AN__MCP__TIMEOUT_SEC", int(analyzer.DefaultMCPTimeout/time.Second)), "MCP/Prow HTTP request timeout in seconds; must exceed the longest analysis (defaults to env. var. PROW_AN__MCP__TIMEOUT_SEC, if set).")
 		tlsInsecure = flag.Bool("tls-insecure", envBool("TLS_INSECURE_SKIP_VERIFY", false), "Skip TLS certificate verification for MCP/Prow HTTP requests (defaults to env. var. TLS_INSECURE_SKIP_VERIFY; set it to \"true\" to enable).")
 	)
 

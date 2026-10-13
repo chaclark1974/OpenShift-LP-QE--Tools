@@ -78,7 +78,7 @@ type Analyzer struct {
 // caps the ENTIRE request, including reading the streamed SSE response body, so
 // it must exceed the longest analysis. Upgrade-interop jobs can take >10 min, so
 // the default is 20 min. Override with MCP_TIMEOUT_SECONDS (see MCPTimeout) or,
-// for the bot, the --mcp-timeout flag / PROW_AN__MCP__TIMEOUT_SECONDS (see
+// for the bot, the --mcp-timeout flag / PROW_AN__MCP__TIMEOUT_SEC (see
 // WithTimeout).
 const DefaultMCPTimeout = 1200 * time.Second
 
